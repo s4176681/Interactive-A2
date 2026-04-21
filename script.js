@@ -1,9 +1,11 @@
 const video = document.querySelector("#custom-video-player");
+// creating a constant variable, naming it 'video'
 const playPauseBtn = document.querySelector("#play-pause-btn");
 const playPauseImg = document.querySelector("#play-pause-img");
 const progressBar = document.querySelector("#progress-bar-fill");
 video.removeAttribute("controls");
 // playPauseBtn.addEventListener("click", togglePlayPause);
+// this prints the 'video' thats been defined in line 1 to be printed into the console, or the html page.
 video.addEventListener("timeupdate", updateProgressBar);
 function togglePlayPause() {
   if (video.paused || video.ended) {
