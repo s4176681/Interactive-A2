@@ -26,7 +26,7 @@ function updateProgressBar() {
 
 // Add other functionalities here
 
-//This is what allows the progress bar to be clickable
+//This is what allows the progress bar to be clickable and -draggable-
 function clickProgressBar(event) {
   // in between the brackets, it needs to accept a parameter
   const rect = progressBar.getBoundingClientRect();
@@ -35,8 +35,49 @@ function clickProgressBar(event) {
   const percentage = clickX / rect.width;
   // calculating the percentage of the bar and where its been clicked
   console.log("Clicked at this" + percentage)
-  //prints the percentage in 0.00000 form in the console.
+  //prints the percentage in 0.00000 form in the console, this was to debug and check if the original idea was working.
   if (audio.duration) {
     audio.currentTime = (percentage) * audio.duration;
   }
 }
+
+//this is creating the seeking of dragging along the progress bar.
+function seek(event) {
+  const rect = progressBar.getBoundingClientRect();
+  //assigning logic to the function, thus click and drag
+  let x = event.clientX - rect.left;
+  //clamps or constrains it to the bar
+  x = Math.max(0, Math.min(x, rect.width));
+  const percentage = x / rect.width;
+  // defaulting the constant to be that dragging is set to false.
+  if (!isNaN(audio.duration)) {
+    audio.currentTime = percentage * audio.duration;
+  }
+
+}
+// calling the function without creating/naming a new one
+// creating an event listener for all three different type of mouse interactions.
+progressBar.addEventListener("mousedown", (e) => {
+  progressBar.style.cursor = "grabbing";
+  isDragging = true;
+  audio.muted = true; //pauses the audio instantly when dragging becomes true, removes audio breaking effect.
+  seek(e);
+
+  document.body.style.userSelect = "none"; 
+  // stop the outside progress bar jittering.
+});
+window.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+  seek(e)
+});
+window.addEventListener("mouseup", () => {
+  // mouseup function is global instead of being constrained to the progress bar.
+  isDragging = false;
+  audio.muted = false; //music starts playing again on release.
+  progressBar.style.cursor = "pointer";
+  document.body.style.userSelect = "";
+});
+window.addEventListener("mouseleave", () => {
+  isDragging = false;
+})
+
