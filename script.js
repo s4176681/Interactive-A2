@@ -26,6 +26,7 @@ function updateProgressBar() {
 
 // Add other functionalities here
 
+//This is what allows the progress bar to be clickable
 function clickProgressBar(event) {
   // in between the brackets, it needs to accept a parameter
   const rect = progressBar.getBoundingClientRect();
@@ -35,7 +36,6 @@ function clickProgressBar(event) {
   // calculating the percentage of the bar and where its been clicked
   console.log("Clicked at this" + percentage)
   //prints the percentage in 0.00000 form in the console.
-
   if (audio.duration) {
     audio.currentTime = (percentage) * audio.duration;
   }
