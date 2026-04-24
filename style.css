@@ -67,7 +67,7 @@ nav a {
 
 /* Media player styling */
 .media-player {
-  width: 100%;
+  width: 95%;
   margin: 0 auto;
 }
 
@@ -80,7 +80,9 @@ nav a {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  /*Margins adjusted here to hide to footer on the landing of the page from user POV*/
   width: 100%;
 }
 
@@ -88,7 +90,7 @@ nav a {
   background-color: var(--main-btn-bg-color);
   color: var(--main-text-color);
   border: none;
-  padding: 8px 12px;
+  padding: 10px 12px;
   cursor: pointer;
   font-size: 16px;
   display: flex;
