@@ -1,5 +1,5 @@
-const video = document.querySelector("#custom-video-player");
-// creating a constant variable, naming it 'video'
+const video = document.querySelector("#custom-audio-player");
+// creating a constant variable, naming it 'audio/video'
 const playPauseBtn = document.querySelector("#play-pause-btn");
 const playPauseImg = document.querySelector("#play-pause-img");
 const progressBar = document.querySelector("#progress-bar-fill");
