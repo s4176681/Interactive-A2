@@ -54,11 +54,16 @@ nav ul {
   list-style: none;
   display: flex;
   justify-content: center;
+  outline: black solid 2px;
+  border-radius: 10px;
 }
 
+  /*Styling the invisable box around the text*/
 nav ul li {
-  margin-right: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
+
 
 nav a {
   text-decoration: none;
