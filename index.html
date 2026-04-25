@@ -6,7 +6,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Relax&Study</title>
     <!-- add the font family of your choice -->
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="style.css" />
@@ -17,7 +17,6 @@
     <header>
       <h1>Media Player Website</h1>
     </header>
- 
     <!-- Navigation Section -->
     <nav>
       <ul>
@@ -27,11 +26,20 @@
          <!--Removed additional items, only keep Relax and Study-->
       </ul>
     </nav>
-
     <!-- Main Content Section -->
     <main class="container">
-      <!-- Media Player Section -->
+      <canvas id ="visual-canvas"></canvas>
 
+
+
+
+
+
+
+
+
+
+      <!-- Media Player Section -->
 <!-- 
 Video section is commented out and is now replaced with audio and different visuals instead.
 
@@ -66,22 +74,16 @@ Video section is commented out and is now replaced with audio and different visu
               width="24"
               height="24"/>
           </button>
-
-
-          
             <!--Progress bar is here-->
           <div class="progress-bar" onclick="clickProgressBar(event)">
             <span id="progress-bar-fill"></span>
           </div>
-
         </div>
-
       </div>
 
       
       <!-- Additional Content Section -->
     </main>
-
     <!-- Footer Section -->
     <footer>
       <p>&copy; 2024 Media Player Website. All rights reserved.</p>

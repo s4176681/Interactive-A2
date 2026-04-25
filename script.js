@@ -6,9 +6,18 @@ const progressBarFill = document.querySelector("#progress-bar-fill");
 // added the progress bar const with .progress-bar, since the progress bar needed the actual container and not the fill inside of it.
 const progressBar = document.querySelector(".progress-bar");
 // removed 'default controls remover' here, since reset.css does most of that already.
+
+// creating the canvas constant in JS
+const canvas = document.querySelector("#visual-canvas");
+// scope is now 2D.
+const ctx = canvas.getContext("2d");
+// make canvas match the display size
+canvas.width = canvas.clientWidth;
+canvas.height = canvas.clientHeight;
+
+audio.addEventListener("timeupdate", updateProgressBar);
 // playPauseBtn.addEventListener("click", togglePlayPause);
 // this prints the 'audio' thats been defined in line 1 to be printed into the console, or the html page.
-audio.addEventListener("timeupdate", updateProgressBar);
 function togglePlayPause() {
   if (audio.paused || audio.ended) {
     audio.play();
@@ -86,3 +95,16 @@ window.addEventListener("mouseleave", () => {
   document.body.style.userSelect = "";
 });
 
+//animation loop
+function animate() {
+  requestAnimationFrame(animate);
+
+  if (!audio.duration) return;
+  
+  // creating value 0 to 1 is start and end of the audio file.
+  const progress = audio.currentTime / audio.duration;
+
+  draw(progress);
+}
+
+// The first visual is here:
