@@ -107,4 +107,29 @@ function animate() {
   draw(progress);
 }
 
-// The first visual is here:
+// The first moving visual is here:
+function draw(progress) {
+  const w = canvas.width;
+  const h = canvas.height;
+  // progress is the 'scrub' bar value. Or progress bar's progress.
+  ctx.clearRect(0, 0, w, h);
+
+  //background
+  ctx.fillStyle = "87ceeb";
+  ctx/fillRect(0, 0, w, h);
+
+  //the position and movement scope
+  const centerX = w / 2;
+  const radius = w / 2;
+  // using pi, as our circle  
+  const angle = Math.PI * progress;
+
+  const x = centerX + radius * Math.cos(angle + Math.PI);
+  const y = h - radius * Math.sin(angle);
+
+  //draw THE SUN
+  ctx.beginPath();
+  ctx.arc(x, y, 20, 0, Math.PI * 2);
+  ctx.fillStyle = "yellow";
+  ctx.fill();
+}
