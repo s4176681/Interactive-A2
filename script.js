@@ -27,6 +27,8 @@ function updateProgressBar() {
 // Add other functionalities here
 
 //This is what allows the progress bar to be clickable and -draggable-
+let isDragging = false;
+// simple assign to default isDragging to be false. Fixes simple errors such as variables being undefined.
 function clickProgressBar(event) {
   // in between the brackets, it needs to accept a parameter
   const rect = progressBar.getBoundingClientRect();
@@ -79,5 +81,8 @@ window.addEventListener("mouseup", () => {
 });
 window.addEventListener("mouseleave", () => {
   isDragging = false;
-})
+  audio.muted = false;
+  progressBar.style.cursor = "pointer";
+  document.body.style.userSelect = "";
+});
 
