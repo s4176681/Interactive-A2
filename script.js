@@ -115,8 +115,8 @@ function draw(progress) {
   ctx.clearRect(0, 0, w, h);
 
   //background
-  ctx.fillStyle = "87ceeb";
-  ctx/fillRect(0, 0, w, h);
+  ctx.fillStyle = "#87ceeb";
+  ctx.fillRect(0, 0, w, h);
 
   //the position and movement scope
   const centerX = w / 2;
@@ -133,3 +133,5 @@ function draw(progress) {
   ctx.fillStyle = "yellow";
   ctx.fill();
 }
+
+animate();
