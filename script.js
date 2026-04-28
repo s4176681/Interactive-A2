@@ -102,6 +102,7 @@ function animate() {
   if (!audio.duration) return;
   
   // creating value 0 to 1 is start and end of the audio file.
+  // this links it.
   const progress = audio.currentTime / audio.duration;
 
   draw(progress);
@@ -121,7 +122,7 @@ function draw(progress) {
   //the position and movement scope
   const centerX = w / 2;
   const radius = w / 2;
-  // using pi, as our circle  
+  // using pi, as our circle, this makes it so that it starts at half and ends at the other half.
   const angle = Math.PI * progress;
 
   const x = centerX + radius * Math.cos(angle + Math.PI);
@@ -131,6 +132,26 @@ function draw(progress) {
   ctx.beginPath();
   ctx.arc(x, y, 20, 0, Math.PI * 2);
   ctx.fillStyle = "yellow";
+  ctx.fill();
+
+  //draw THE HILLS
+  ctx.beginPath();
+  
+  ctx.moveTo(0, h);
+  ctx.quadraticCurveTo(
+    w / 7, h - 500,
+    w / 2, h - 200,
+  );
+
+  ctx.lineTo(w, h);
+  ctx.closePath();
+
+  // gradient
+  const hillGrad = ctx.createLinearGradient(0, h -150, 0, h);
+  hillGrad.addColorStop(0, "#388e3c");
+  hillGrad.addColorStop(1, "#1b5e20");
+
+  ctx.fillStyle = hillGrad;
   ctx.fill();
 }
 
