@@ -108,6 +108,27 @@ function animate() {
   draw(progress);
 }
 
+//making functions for the transitioning gradients
+function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
+
+function lerpColor(c1, c2, t) {
+  const r = Math.round(lerp(c1.r, c2.r, t));
+  const g = Math.round(lerp(c1.g, c2.g, t));
+  const b = Math.round(lerp(c1.b, c2.b, t));
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+function hexToRgb(hex) {
+  const num = parseInt(hex.slice(1), 16);
+  return {
+    r: (num >> 16) & 255,
+    g: (num >> 8) & 255,
+    b: num & 255
+  };
+}
+
 // The first moving visual is here:
 function draw(progress) {
   const w = canvas.width;
@@ -116,7 +137,60 @@ function draw(progress) {
   ctx.clearRect(0, 0, w, h);
 
   //background
-  ctx.fillStyle = "#87ceeb";
+  //ctx.fillStyle = "#87ceeb";
+  //ctx.fillRect(0, 0, w, h);
+
+  // we are 1 third of the way through the video/audio
+  //if(progress < 0.33) { //using the progress event (funcion) here lets us take advantage of the event we created already.
+    //sunrise!!
+    //topColor = "#ff9a9e";
+    //bottomColor = "#fad0c4";
+  //} else if (progress < 0.66) {
+    //midday!!
+    //topColor = "#87ceeb";
+    //bottomColor = "#e0f7ff";
+  //} else {
+    //SUNSET!!
+    //topColor = "#fbc2eb";
+    //bottomColor = "#a18cd1";
+  //}
+
+  //Making the sky gradient, replacing just 'blue sky' colour.
+  const skyGradient = ctx.createLinearGradient(0, 0, 0, h);
+
+  //simple blends, sunrise, midday, sunset.
+  let topColor, bottomColor;
+
+  const sunriseTop = hexToRgb("ff9a9e");
+  const sunriseBottom = hexToRgb("#fad0c4");
+
+  const middayTop = hexToRgb("#87ceeb");
+  const middayBottom = hexToRgb("#e0f7ff");
+
+  const sunsetTop = hexToRgb("#fbc2eb");
+  const sunsetBottom = hexToRgb("#a18cd1");
+
+  if (progress < 0.5) {
+    // sunrise becoming midday
+    const t = progress / 0.5;
+
+  topColor = lerpColor(sunriseTop, middayTop, t);
+  bottomColor = lerpColor(sunriseBottom, middayBottom, t);
+
+  } else {
+    // midday to sunset
+    const t = (progress - 0.5) / 0.5;
+
+    topColor = lerpColor(middayTop, sunsetTop, t);
+    bottomColor = lerpColor(middayBottom, sunsetBottom, t);
+  }
+
+
+
+  skyGradient.addColorStop(0, topColor);
+  skyGradient.addColorStop(1, bottomColor);
+
+  ctx.fillStyle = skyGradient;
   ctx.fillRect(0, 0, w, h);
 
   //the position and movement scope

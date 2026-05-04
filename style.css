@@ -86,14 +86,15 @@ nav a {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  margin-top: 20px;
   margin-bottom: 15px;
   /*Margins adjusted here to hide to footer on the landing of the page from user POV*/
   width: 100%;
+  background-color:#1b5e20;
+  /*changed the colour of the progress bar colour and top margin to line up nicely with the green hills.*/
 }
 
 .custom-controls button {
-  background-color: var(--main-btn-bg-color);
+  background-color: var(--main-btn-bg-color); /*might change the colour of the button later*/
   color: var(--main-text-color);
   border: none;
   padding: 10px 12px;
@@ -108,6 +109,7 @@ nav a {
   height: 10px;
   background-color: #ddd;
   margin-top: 10px;
+  margin-right: 10px;
   overflow: hidden;
 }
 
