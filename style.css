@@ -36,17 +36,30 @@ body {
 }
 
 /* Header styling */
+/*Changed to accomdate the new canvas*/
 header {
+  position: fixed;
+  top: 0; 
+  left: 0;
+
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
   padding: 10px 0;
+
   text-align: center;
   width: 100%;
+  
+  z-index: 20;
 }
 
 /* Navigation styling */
 nav {
   text-align: center;
+
+  position: fixed;
+  top: 60px;
+
+  z-index: 15;
 }
 
 nav ul {
@@ -71,10 +84,15 @@ nav a {
 
 /*This is under the 'canvas container', controls whats already inside the canvas and cannot go outside of it.*/
 #visual-canvas {
-  width: 100%;
-  height: 600px;
-  display: block;
-  margin: 0 auto;
+  /*making the canvas, the 'background'*/
+  position: fixed;
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  z-index: -1;
+
   background-color: pink;
   /*Trouble shoot and test my canvas' appearence.*/
 }
@@ -82,15 +100,30 @@ nav a {
 /*removed media player styling here*/
 
 .custom-controls {
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
   margin-bottom: 15px;
   /*Margins adjusted here to hide to footer on the landing of the page from user POV*/
-  width: 100%;
-  background-color:#1b5e20;
+  width: 80%;
+  max-width: 800px;
+
   /*changed the colour of the progress bar colour and top margin to line up nicely with the green hills.*/
+
+  border-radius: 12px;
+  padding: 10px 15px;
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: (blur(10px));
+  /*MAKES THE PROGRESS BAR TRANSLUSCENT, YES*/
+
+  z-index: 20;
 }
 
 .custom-controls button {

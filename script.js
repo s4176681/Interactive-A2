@@ -142,6 +142,7 @@ function draw(progress) {
   // progress is the 'scrub' bar value. Or progress bar's progress.
   ctx.clearRect(0, 0, w, h);
 
+  
   //background
   //ctx.fillStyle = "#87ceeb";
   //ctx.fillRect(0, 0, w, h);
@@ -173,8 +174,8 @@ function draw(progress) {
   const middayTop = hexToRgb("#87ceeb");
   const middayBottom = hexToRgb("#e0f7ff");
 
-  const sunsetTop = hexToRgb("#fbc2eb");
-  const sunsetBottom = hexToRgb("#a18cd1");
+  const sunsetTop = hexToRgb("#a18cd1");
+  const sunsetBottom = hexToRgb("#c6513c");
 
   if (progress < 0.5) {
     // sunrise becoming midday
@@ -199,15 +200,20 @@ function draw(progress) {
   ctx.fillStyle = skyGradient;
   ctx.fillRect(0, 0, w, h);
 
+  //making sure the header doesn't overlap the canvas
+  const headerOffset = 120;
+
+  const usableHeight = h - headerOffset;
+  const radius = usableHeight / 1.2;
   //the position and movement scope
-  const centerX = w / 2;
-  const radius = w / 2;
+  const centerX = w / 2; // adjust the pinpoint of the sun's movements
+  const baseY = usableHeight
   // using pi, as our circle, this makes it so that it starts at half and ends at the other half.
   const angle = Math.PI * progress;
 
   const x = centerX + radius * Math.cos(angle + Math.PI);
-  const y = h - radius * Math.sin(angle);
-
+  const y = (h - headerOffset) - radius * Math.sin(angle);
+  
   //draw THE SUN
   ctx.beginPath();
   ctx.arc(x, y, 20, 0, Math.PI * 2);
@@ -215,34 +221,36 @@ function draw(progress) {
   ctx.fill();
 
   //draw THE HILLS
+  //its no longer hills
+  //we're drawing an ocean now.
+  const oceanTop = h * .82;
+  const oceanGrad = ctx.createLinearGradient(0, h * 0.4, 0, h);
+  // the gradient only matters vertically for the ocean
+
+  oceanGrad.addColorStop(0, "#00aeff"); //light
+  oceanGrad.addColorStop(0.5, "#097cbb"); //mid way, its medium depth
+  oceanGrad.addColorStop(1, "#042239"); //deep oceans
+
+  ctx.fillStyle = oceanGrad;
+  ctx.fillRect(0, oceanTop, w, h - oceanTop);
+
+  const waveBase = h * 0.82;
+
   ctx.beginPath();
-  
-  ctx.moveTo(0, h);
+  ctx.moveTo(0, waveBase);
 
-  ctx.quadraticCurveTo( //this draws a arc, hill.
-    w / 10, h - 400,
-    w / 3, h - 120,
-  );
+  for (let x=0; x <= w; x += 20) {
+    const wave = 
+      Math.sin(x * 0.01 + progress * 5) * 8; ripples
 
-  ctx.quadraticCurveTo( //dips
-    w / 2, h + 60,
-    (2 * w)/3, h-80
-  );
-
-  ctx.quadraticCurveTo( //draw another hill.
-    (5 * w) / 6, h - 200,
-    w, h
-  );
+    ctx.lineTo(x, waveBase + wave);
+  }
 
   ctx.lineTo(w, h);
+  ctx.lineTo(0, h);
   ctx.closePath();
 
-  // gradients
-  const hillGrad = ctx.createLinearGradient(0, h - 200, 0, h);
-  hillGrad.addColorStop(0, "#388e3c");
-  hillGrad.addColorStop(1, "#1b5e20");
-
-  ctx.fillStyle = hillGrad;
+  ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
   ctx.fill();
 }
 
