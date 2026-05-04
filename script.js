@@ -168,11 +168,11 @@ function draw(progress) {
   //simple blends, sunrise, midday, sunset.
   let topColor, bottomColor;
 
-  const sunriseTop = hexToRgb("ff9a9e");
-  const sunriseBottom = hexToRgb("#fad0c4");
+  const sunriseTop = hexToRgb("#054f80");
+  const sunriseBottom = hexToRgb("#a48177");
 
   const middayTop = hexToRgb("#87ceeb");
-  const middayBottom = hexToRgb("#e0f7ff");
+  const middayBottom = hexToRgb("#a4b6bc");
 
   const sunsetTop = hexToRgb("#a18cd1");
   const sunsetBottom = hexToRgb("#c6513c");
@@ -224,24 +224,24 @@ function draw(progress) {
   //its no longer hills
   //we're drawing an ocean now.
   const oceanTop = h * .82;
-  const oceanGrad = ctx.createLinearGradient(0, h * 0.4, 0, h);
+  const oceanGrad = ctx.createLinearGradient(0, oceanTop, 0, h);
   // the gradient only matters vertically for the ocean
 
-  oceanGrad.addColorStop(0, "#00aeff"); //light
-  oceanGrad.addColorStop(0.5, "#097cbb"); //mid way, its medium depth
-  oceanGrad.addColorStop(1, "#042239"); //deep oceans
+  oceanGrad.addColorStop(0, "#0c6893"); //light
+  oceanGrad.addColorStop(0.5, "#0d567e"); //mid way, its medium depth
+  oceanGrad.addColorStop(1, "#041420"); //deep oceans
 
   ctx.fillStyle = oceanGrad;
   ctx.fillRect(0, oceanTop, w, h - oceanTop);
 
-  const waveBase = h * 0.82;
+  const waveBase = oceanTop;
 
   ctx.beginPath();
   ctx.moveTo(0, waveBase);
 
-  for (let x=0; x <= w; x += 20) {
+  for (let x=0; x <= w; x += 1) {
     const wave = 
-      Math.sin(x * 0.01 + progress * 5) * 8; ripples
+      Math.sin(x * 0.01 + progress * 5) * 8; //ripples
 
     ctx.lineTo(x, waveBase + wave);
   }

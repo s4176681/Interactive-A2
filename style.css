@@ -79,7 +79,7 @@ nav ul li {
 
 nav a {
   text-decoration: none;
-  color: var(--text-color);
+  color: black;
 }
 
 /*This is under the 'canvas container', controls whats already inside the canvas and cannot go outside of it.*/
@@ -155,10 +155,4 @@ nav a {
 }
 
 /* Footer styling */
-footer {
-  background-color: var(--main-bg-color);
-  color: var(--main-text-color);
-  text-align: center;
-  padding: 10px 0;
-  width: 100%;
-}
+/*Footer was removed*/
