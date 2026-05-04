@@ -109,10 +109,16 @@ function animate() {
 }
 
 //making functions for the transitioning gradients
+// lerp stands for 'linear interpolation', 'give me a value beetween x and y'.
+// a is the start value
+// b is the end value
+// t is how far in between
+// t is a percentage, but we enter it in it's values as decimals, e.g: 0.5 or 0.88
 function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
+// colour converting 
 function lerpColor(c1, c2, t) {
   const r = Math.round(lerp(c1.r, c2.r, t));
   const g = Math.round(lerp(c1.g, c2.g, t));
