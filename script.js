@@ -138,16 +138,27 @@ function draw(progress) {
   ctx.beginPath();
   
   ctx.moveTo(0, h);
-  ctx.quadraticCurveTo(
-    w / 7, h - 500,
-    w / 2, h - 200,
+
+  ctx.quadraticCurveTo( //this draws a arc, hill.
+    w / 10, h - 400,
+    w / 3, h - 120,
+  );
+
+  ctx.quadraticCurveTo( //dips
+    w / 2, h + 60,
+    (2 * w)/3, h-80
+  );
+
+  ctx.quadraticCurveTo( //draw another hill.
+    (5 * w) / 6, h - 200,
+    w, h
   );
 
   ctx.lineTo(w, h);
   ctx.closePath();
 
-  // gradient
-  const hillGrad = ctx.createLinearGradient(0, h -150, 0, h);
+  // gradients
+  const hillGrad = ctx.createLinearGradient(0, h - 200, 0, h);
   hillGrad.addColorStop(0, "#388e3c");
   hillGrad.addColorStop(1, "#1b5e20");
 
