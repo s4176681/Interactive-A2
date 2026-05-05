@@ -34,6 +34,9 @@ function updateProgressBar() {
 }
 
 // Add other functionalities here
+const reflectionImg = new Image();
+reflectionImg.src = "images/reflection.png";
+
 
 //This is what allows the progress bar to be clickable and -draggable-
 let isDragging = false;
@@ -252,40 +255,30 @@ function draw(progress) {
   ctx.fill();
 
     //reflection from the SUN
-  const reflectionW = 100; //width
-  const reflectionH = 140; //height
+  const imgW = 200; //width
+  const imgH = 100; //height
 
-  const shimmerOffset = Math.sin(progress * 15) * 10;
+  const shimmerOffset = Math.sin(progress * 10) * 5;
 
-  const left = Math.max(0, x + shimmerOffset - reflectionW / 2.2); //left side adjust
-  const right = Math.min(w, x + shimmerOffset + reflectionW / 2.2); //right side adjust
+  const imgX = x +shimmerOffset - imgW / 2; //using the sun's position to track
+  const imgY = waveBase;
 
-  const reflectionGrad = ctx.createLinearGradient(
-    x + shimmerOffset, waveBase,
-    x + shimmerOffset, waveBase + reflectionH
-  );
+  let reflectionAlpha = 1;
 
-  reflectionGrad.addColorStop(0, "rgba(255,255,255,0.4)");
-  reflectionGrad.addColorStop(1, "rgba(255,255,255,0)");
-
-  ctx.beginPath();
-  ctx.moveTo(left, waveBase);
-  //under the sun strip
-  for (let xPos = left; xPos <= right; xPos += 10) {
-    const t = (xPos - left) / (right - left);
-    const edgeFade = Math.sin(t * Math.PI); //smoother edge fade
-
-    const wave =
-      Math.sin(xPos * 0.005 + progress * 3) * 0.01 * edgeFade;
-    
-    ctx.lineTo(xPos, waveBase + wave);
+  if (progress < 0.4) {
+    reflectionAlpha = 1 - (progress / 0.4); //instead of 0 to 1
+  } else {
+    reflectionAlpha = 0;
   }
-  ctx.lineTo(right, h);
-  ctx.lineTo(left, h);
-  ctx.closePath();
 
-  ctx.fillStyle = reflectionGrad;
-  ctx.fill();
+  if (reflectionImg.complete) {   
+    ctx.globalAlpha = reflectionAlpha * 0.6;
+
+    ctx.drawImage( //https://www.pngegg.com/en/search?q=water+Reflection
+      reflectionImg, imgX, imgY, imgW, imgH
+    );
+  }
+  ctx.globalAlpha = 1;
 
 }
 
