@@ -142,7 +142,6 @@ function draw(progress) {
   // progress is the 'scrub' bar value. Or progress bar's progress.
   ctx.clearRect(0, 0, w, h);
 
-  
   //background
   //ctx.fillStyle = "#87ceeb";
   //ctx.fillRect(0, 0, w, h);
@@ -192,8 +191,6 @@ function draw(progress) {
     bottomColor = lerpColor(middayBottom, sunsetBottom, t);
   }
 
-
-
   skyGradient.addColorStop(0, topColor);
   skyGradient.addColorStop(1, bottomColor);
 
@@ -219,7 +216,7 @@ function draw(progress) {
   ctx.arc(x, y, 20, 0, Math.PI * 2);
   ctx.fillStyle = "yellow";
   ctx.fill();
-
+  
   //draw THE HILLS
   //its no longer hills
   //we're drawing an ocean now.
@@ -250,8 +247,46 @@ function draw(progress) {
   ctx.lineTo(0, h);
   ctx.closePath();
 
+  //ripples fill
   ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
   ctx.fill();
+
+    //reflection from the SUN
+  const reflectionW = 100; //width
+  const reflectionH = 140; //height
+
+  const shimmerOffset = Math.sin(progress * 15) * 10;
+
+  const left = Math.max(0, x + shimmerOffset - reflectionW / 2.2); //left side adjust
+  const right = Math.min(w, x + shimmerOffset + reflectionW / 2.2); //right side adjust
+
+  const reflectionGrad = ctx.createLinearGradient(
+    x + shimmerOffset, waveBase,
+    x + shimmerOffset, waveBase + reflectionH
+  );
+
+  reflectionGrad.addColorStop(0, "rgba(255,255,255,0.4)");
+  reflectionGrad.addColorStop(1, "rgba(255,255,255,0)");
+
+  ctx.beginPath();
+  ctx.moveTo(left, waveBase);
+  //under the sun strip
+  for (let xPos = left; xPos <= right; xPos += 10) {
+    const t = (xPos - left) / (right - left);
+    const edgeFade = Math.sin(t * Math.PI); //smoother edge fade
+
+    const wave =
+      Math.sin(xPos * 0.005 + progress * 3) * 0.01 * edgeFade;
+    
+    ctx.lineTo(xPos, waveBase + wave);
+  }
+  ctx.lineTo(right, h);
+  ctx.lineTo(left, h);
+  ctx.closePath();
+
+  ctx.fillStyle = reflectionGrad;
+  ctx.fill();
+
 }
 
 animate();
