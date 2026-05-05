@@ -18,12 +18,12 @@ canvas.height = canvas.clientHeight;
 audio.addEventListener("timeupdate", updateProgressBar);
 // playPauseBtn.addEventListener("click", togglePlayPause);
 // this prints the 'audio' thats been defined in line 1 to be printed into the console, or the html page.
-function togglePlayPause() {
-  if (audio.paused || audio.ended) {
-    audio.play();
+function togglePlayPause() { //conditional logic
+  if (audio.paused || audio.ended) { // play and pause button
+    audio.play(); //PLAY!
     playPauseImg.src = "https://img.icons8.com/ios-glyphs/30/pause--v1.png";
   } else {
-    audio.pause();
+    audio.pause(); //PAUSE!
     playPauseImg.src = "https://img.icons8.com/ios-glyphs/30/play--v1.png";
   }
 }
@@ -265,8 +265,8 @@ function draw(progress) {
 
   let reflectionAlpha = 1;
 
-  if (progress < 0.4) {
-    reflectionAlpha = 1 - (progress / 0.4); //instead of 0 to 1
+  if (progress < 0.2) {
+    reflectionAlpha = 1 - (progress / 0.2); //instead of 0 to 1
   } else {
     reflectionAlpha = 0;
   }
@@ -283,3 +283,28 @@ function draw(progress) {
 }
 
 animate();
+
+//New function: sidebar
+const panel = document.querySelector("#side-panel");
+const openBtn = document.querySelector("#open-panel-btn")
+// open and close function for the sidebar
+openBtn.addEventListener("click", () => {
+  panel.classList.toggle("open");
+});
+
+const audioInput = document.querySelector("#audio-url");
+const loadBtn = document.querySelector("#load-audio");
+
+loadBtn.addEventListener("click", () => {
+  const url = audioInput.value.trim();
+  if (!url) return;
+
+  audio.apuse();
+
+  audio.src = url;
+  audio.load();
+
+  audio.onloadmetadata = () => {
+    audio.play();
+  };
+});
