@@ -170,7 +170,7 @@ function draw(progress) {
   //simple blends, sunrise, midday, sunset.
   let topColor, bottomColor;
 
-  const sunriseTop = hexToRgb("#054f80");
+  const sunriseTop = hexToRgb("#2481a5");
   const sunriseBottom = hexToRgb("#a48177");
 
   const middayTop = hexToRgb("#87ceeb");
@@ -217,7 +217,7 @@ function draw(progress) {
   //draw THE SUN
   ctx.beginPath();
   ctx.arc(x, y, 20, 0, Math.PI * 2);
-  ctx.fillStyle = "yellow";
+  ctx.fillStyle = "#ffd900";
   ctx.fill();
   
   //draw THE HILLS

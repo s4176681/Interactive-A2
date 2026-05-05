@@ -76,7 +76,6 @@ nav ul li {
   margin-left: 10px;
 }
 
-
 nav a {
   text-decoration: none;
   color: black;
@@ -127,7 +126,7 @@ nav a {
 #side-panel {
   position: fixed;
   top: 60px;
-  left: 0px;
+  left: -300px;
   width: 290px;
   height:50vh;
   background: rgba(0,0,0,0.8);
@@ -137,7 +136,7 @@ nav a {
 }
 
 #side-panel.open {
-  right: 0;
+  left: 0; /*slides it in, (still snappy)*/
 }
 
 /*removed media player styling here*/
