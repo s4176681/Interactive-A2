@@ -344,4 +344,16 @@ document.querySelectorAll("nav a").forEach(link => {
     }, 50);
   });
 });
+//the loop button
+const loopBtn = document.querySelector("#loop.btn");
+const loopImg = document.querySelector("loop-img");
 
+loopBtn.addEventListener("click", () => {
+  audio.loop = !audio.loop;
+
+  if (audio.loop) {
+    loopBtn.src = "images/icons8-loop-100.png";
+  } else {
+    loopBtn.src = "images/icons8-loop-100-stroke.png";
+  }
+});

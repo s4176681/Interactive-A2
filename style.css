@@ -161,7 +161,7 @@ nav a {
   margin-bottom: 15px;
   /*Margins adjusted here to hide to footer on the landing of the page from user POV*/
   width: 80%;
-  max-width: 800px;
+  max-width: 1000px;
 
   /*changed the colour of the progress bar colour and top margin to line up nicely with the green hills.*/
 
@@ -176,7 +176,9 @@ nav a {
 }
 
 .custom-controls button {
-  background-color: var(--main-btn-bg-color); /*might change the colour of the button later*/
+  background-color: rgba(255, 255, 255, 0.12); /*might change the colour of the button later*/
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
   color: var(--main-text-color);
   border: none;
   padding: 10px 12px;
@@ -184,6 +186,17 @@ nav a {
   font-size: 16px;
   display: flex;
   align-items: center;
+}
+
+/*loop button*/
+#loop-btn {
+  opacity: 0.7;
+  transition: 0.2s ease-in-out;
+}
+
+#loop-btn:hover {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 .progress-bar {
