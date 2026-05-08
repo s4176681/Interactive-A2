@@ -308,3 +308,40 @@ loadBtn.addEventListener("click", () => {
     audio.play();
   };
 });
+
+//Selecting aspects to hide in focus mode
+const header = document.querySelector("header");
+const nav = document.querySelector("nav");
+const controls = document.querySelector(".custom-controls");
+const sideBtn = document.querySelector("#open-panel-btn");
+const sidePanel = document.querySelector("#side-panel");
+//lets make it an array
+const uiElements = [
+  header, nav, controls, sideBtn, sidePanel
+];
+// hide UI function
+function hideUI() {
+  uiElements.forEach(el => {
+    el.classList.add("focus-hidden");
+  });
+}
+// reverting, showing the UI again
+// 'focus hidden' refers to the styling added in the css file.
+function showUI() {
+  uiElements.forEach(el => {
+    el.classList.remove("focus-hidden");
+  });
+}
+// nav button is being clicked
+document.querySelectorAll("nav a").forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    hideUI();
+
+    setTimeout(() => { // anywhere on the window is clicked
+      document.body.addEventListener("click", showUI, { once: true});
+    }, 50);
+  });
+});
+
