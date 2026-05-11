@@ -345,15 +345,17 @@ document.querySelectorAll("nav a").forEach(link => {
   });
 });
 //the loop button
-const loopBtn = document.querySelector("#loop.btn");
-const loopImg = document.querySelector("loop-img");
+const loopBtn = document.querySelector("#loop-btn");
+const loopImg = document.querySelector("#loop-img");
 
 loopBtn.addEventListener("click", () => {
   audio.loop = !audio.loop;
 
   if (audio.loop) {
-    loopBtn.src = "images/icons8-loop-100.png";
+    loopImg.src = "images/icons8-loop-100.png";
+    loopBtn.style.opacity = "1";
   } else {
-    loopBtn.src = "images/icons8-loop-100-stroke.png";
+    loopImg.src = "images/icons8-loop-100-stroke.png";
+    loopBtn.style.opacity = "0.6";
   }
 });
