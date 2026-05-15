@@ -313,6 +313,7 @@ loadBtn.addEventListener("click", () => { //load button
   playlist.push(url);
   renderPlaylist();
   audio.src = url;
+  currentTrack = url;
   audio.load();
 
   audio.addEventListener("loadedmetadata", () => {
@@ -329,27 +330,52 @@ function renderPlaylist() {
   playlistEl.innerHTML = "";
 
   playlist.forEach((track, index) => {
-    const item = document.createElement("div"); //html overlapping with JS now
-  
+    const item = document.createElement("div");
+
+    const isActive = track === currentTrack; //added the indicator of what is currently playing
+
     item.textContent = "Track " + (index + 1);
 
     item.style.cursor = "pointer";
-    item.style.padding = "6px";
-    item.style.color = "white"; // some css overlap too
+    item.style.padding = "8px 10px";
+    item.style.marginBottom = "6px";
+    item.style.borderRadius = "8px";
 
+    item.style.transition = "all 0.2s ease";
+
+    if (isActive) {
+      item.style.background = "rgba(255,255,255,0.2)";
+      item.style.borderLeft = "3px solid #ffd900";
+      item.style.color = "#ffd900";
+    } else {
+      item.style.background = "rgba(255,255,255,0.05)";
+      item.style.color = "white";
+    }
+    item.addEventListener("mouseenter", () => {
+      if (!isActive) {
+        item.style.background = "rgba(255,255,255,0.1)";
+      }
+    });
+    item.addEventListener("mouseleave", () => {
+      if (!isActive) {
+        item.style.background = "rgba(255,255,255,0.05)"; //'style' is used here, overlapping css into the JS file.
+      }
+    });
     item.addEventListener("click", () => {
       audio.pause();
       audio.src = track;
       audio.load();
-
-      audio.addEventListener("loadedmetadata", () => {
+      currentTrack = track;
+      renderPlaylist();
+      audio.onloadedmetadata = () => {
         audio.play();
-      });
+      };
     });
 
     playlistEl.appendChild(item);
   });
 }
+let currentTrack = null;
 
 
 
