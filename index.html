@@ -3,7 +3,7 @@
 <!--Make a toggle for a focus and study mode, or normal and distraction-free modes-->
 <!--Data logging-->
 <!--Focus mode, making the UI disappear and moving the mouse brings it back.-->
-<!--be able to embed YT videos into a playlist nicely on a sidebar-->
+<!--be able to embed mp3s into a playlist nicely on a sidebar-->
 <!DOCTYPE html> 
 <html lang="en">
   <head>
@@ -38,8 +38,9 @@
     <button id="open-panel-btn">☰</button>
 
     <div id="side-panel">
-      <input id="audio-url" placeholder="Paste Youtube link here"/>
+      <input id="audio-url" placeholder="Paste mp3 link here"/>
       <button id ="load-audio">Load </button>
+      <div id="playlist"></div> <!--playlist section inside the side bar-->
     </div>
 
     <!--Controls-->
@@ -62,12 +63,9 @@ Video section is commented out and is now replaced with audio and different visu
 <!--This is the audio section, storing and linking the audio file.-->
       <div class="media-player">
         <audio id="custom-audio-player">
-          <!--LINK TO THE AUDIO-->
-          <source
-            src="https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/erokia_ambient-wave-56-msfxp7-78.mp3"
-            type="audio/mpeg"
-            />
-        <!--audio/mpeg instead of mp3 communicates the file more clearly, fixing MIME type file.-->
+          <!--LINK TO THE AUDIO "src"
+          was removed, transfered to JS
+          --><!--audio/mpeg instead of mp3 communicates the file more clearly, fixing MIME type file.-->
         </audio>
 <!--custom controls-->
           <!--play button that aligns with audio/video-->

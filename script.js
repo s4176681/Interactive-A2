@@ -1,4 +1,13 @@
 const audio = document.querySelector("#custom-audio-player");
+const defaultTrack = "https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/erokia_ambient-wave-56-msfxp7-78.mp3";
+audio.src = defaultTrack; //force loading
+audio.load();
+audio.play();
+// prevents animation lag and breakage
+audio.addEventListener("loadedmetadata", () => {
+  console.log("Audio loaded, duration:", audio.duration);
+});
+
 // creating a constant variable, naming it 'audio/audio'
 const playPauseBtn = document.querySelector("#play-pause-btn");
 const playPauseImg = document.querySelector("#play-pause-img");
@@ -102,7 +111,7 @@ window.addEventListener("mouseleave", () => {
 function animate() {
   requestAnimationFrame(animate);
 
-  if (!audio.duration) return;
+  if (!audio.duration || isNaN(audio.duration)) return;
   
   // creating value 0 to 1 is start and end of the audio file.
   // this links it.
@@ -285,6 +294,7 @@ function draw(progress) {
 animate();
 
 //New function: sidebar
+//SIDE BAR
 const panel = document.querySelector("#side-panel");
 const openBtn = document.querySelector("#open-panel-btn")
 // open and close function for the sidebar
@@ -295,20 +305,55 @@ openBtn.addEventListener("click", () => {
 const audioInput = document.querySelector("#audio-url");
 const loadBtn = document.querySelector("#load-audio");
 
-loadBtn.addEventListener("click", () => {
+loadBtn.addEventListener("click", () => { //load button
   const url = audioInput.value.trim();
-  if (!url) return;
+  if (!url) return; //check if its a url
 
-  audio.apuse();
-
+  audio.pause();
+  playlist.push(url);
+  renderPlaylist();
   audio.src = url;
   audio.load();
 
-  audio.onloadmetadata = () => {
+  audio.addEventListener("loadedmetadata", () => {
     audio.play();
-  };
-});
+  }, { once: true });
 
+  audioInput.value = "";
+});
+//playlist function inside the side bar
+const playlist = [];
+const playlistEl = document.querySelector("#playlist");
+//making the playlist UI
+function renderPlaylist() {
+  playlistEl.innerHTML = "";
+
+  playlist.forEach((track, index) => {
+    const item = document.createElement("div"); //html overlapping with JS now
+  
+    item.textContent = "Track " + (index + 1);
+
+    item.style.cursor = "pointer";
+    item.style.padding = "6px";
+    item.style.color = "white"; // some css overlap too
+
+    item.addEventListener("click", () => {
+      audio.pause();
+      audio.src = track;
+      audio.load();
+
+      audio.addEventListener("loadedmetadata", () => {
+        audio.play();
+      });
+    });
+
+    playlistEl.appendChild(item);
+  });
+}
+
+
+
+//FOCUS MODE
 //Selecting aspects to hide in focus mode
 const header = document.querySelector("header");
 const nav = document.querySelector("nav");
@@ -344,6 +389,8 @@ document.querySelectorAll("nav a").forEach(link => {
     }, 50);
   });
 });
+
+
 //the loop button
 const loopBtn = document.querySelector("#loop-btn");
 const loopImg = document.querySelector("#loop-img");
